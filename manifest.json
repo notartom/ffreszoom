@@ -1,8 +1,12 @@
 {
     "manifest_version": 2,
     "name": "ffreszoom",
-    "version": "0.1",
+    "version": "0.2",
     "description": "Sets the zoom level based on the screen resolution.",
+    "browser_action": {
+        "default_icon": "icons/enabled.svg",
+        "default_title": "ffreszoom (on)"
+    },
     "background": {
         "scripts": ["background.js"]
     },

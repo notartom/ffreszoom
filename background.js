@@ -1,12 +1,17 @@
 ZOOM_THRESHOLD = 2000;
 ZOOM_LEVEL = 2;
+ENABLED = true;
 
 function activated(activeInfo) {
-    zoom(activeInfo.tabId);
+    if (ENABLED) {
+        zoom(activeInfo.tabId);
+    }
 }
 
 function updated(tabId, changeInfo, tab) {
-    zoom(tabId);
+    if (ENABLED) {
+        zoom(tabId);
+    }
 }
 
 function zoom(tabId) {
@@ -43,16 +48,39 @@ function zoom(tabId) {
 
 function resized() {
 
-    var zoomTabs = function(window) {
-        for (let tab of window.tabs) {
-            zoom(tab.id);
+    if (ENABLED) {
+        var zoomTabs = function(window) {
+            for (let tab of window.tabs) {
+                zoom(tab.id);
+            }
         }
-    }
 
-    var getting = browser.windows.getCurrent({populate: true});
-    getting.then(zoomTabs);
+        var getting = browser.windows.getCurrent({populate: true});
+        getting.then(zoomTabs);
+    }
 }
 
+function disable() {
+    browser.browserAction.setIcon({path: "icons/disabled.svg"})
+    browser.browserAction.setTitle({title: "ffreszoom (off)"})
+    ENABLED = false;
+}
+
+function enabled() {
+    browser.browserAction.setIcon({path: "icons/enabled.svg"})
+    browser.browserAction.setTitle({title: "ffreszoom (on)"})
+    ENABLED = true;
+}
+
+function toggle() {
+    if (ENABLED) {
+        disable();
+    } else {
+        enabled();
+    }
+}
+
+browser.browserAction.onClicked.addListener(toggle);
 browser.tabs.onActivated.addListener(activated);
 browser.tabs.onUpdated.addListener(updated);
 browser.runtime.onMessage.addListener(resized);
