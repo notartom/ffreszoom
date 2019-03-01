@@ -1,20 +1,28 @@
 {
     "manifest_version": 2,
     "name": "ffreszoom",
-    "version": "0.2",
+    "version": "0.3",
     "description": "Sets the zoom level based on the screen resolution.",
     "browser_action": {
         "default_icon": "icons/enabled.svg",
         "default_title": "ffreszoom (on)"
     },
     "background": {
-        "scripts": ["background.js"]
+        "scripts": ["globals.js", "background.js"]
     },
-    "permissions": ["<all_urls>", "tabs"],
+    "permissions": ["<all_urls>", "tabs", "storage"],
     "content_scripts": [
         {
             "matches": ["<all_urls>"],
-            "js": ["resize.js"]
+            "js": ["globals.js", "resize.js"]
         }
-    ]
+    ],
+    "options_ui": {
+        "page": "options.html"
+    },
+    "applications": {
+        "gecko": {
+            "id": "ffreszoom@notartom.net"
+        }
+    }
 }

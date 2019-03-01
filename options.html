@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+</head>
+
+<body>
+
+    <form>
+        <!-- min and max from Firefox/browser.tabs.setZoom limits -->
+        <div><label>Zoom factor <input type="number" id="zoomFactor" step="0.1" min="0.3" max="3.0" style="float:right"></label></div>
+        <br/>
+        <div><label>Activate when wider than (px) <input type="number" id="zoomThreshold" step="1" min="0" style="float: right"></label></div>
+        <br/>
+        <div style="text-align: center"><button type="submit">Save</button></div>
+    </form>
+
+    <script src="globals.js"></script>
+    <script src="options.js"></script>
+
+</body>
+
+</html>

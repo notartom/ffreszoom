@@ -1,5 +1,6 @@
-ZOOM_THRESHOLD = 2000;
-ZOOM_LEVEL = 2;
+// clone defaults from globals.js
+zoomThreshold = DEFAULT_ZOOM_THRESHOLD.valueOf();
+zoomFactor = DEFAULT_ZOOM_FACTOR.valueOf();
 ENABLED = true;
 
 function activated(activeInfo) {
@@ -22,8 +23,8 @@ function zoom(tabId) {
             /* Firefox reports width adjusted for zoom, so 3840 x 2160 zoomed
              * 200% will be reported as 1920 x 1080. */
             realWidth = widths[0] * curZoom;
-            if (realWidth > ZOOM_THRESHOLD) {
-                browser.tabs.setZoom(tabId, ZOOM_LEVEL);
+            if (realWidth > zoomThreshold) {
+                browser.tabs.setZoom(tabId, zoomFactor);
             } else {
                 browser.tabs.setZoom(tabId, 1);
             }
@@ -79,6 +80,30 @@ function toggle() {
         enabled();
     }
 }
+
+function updateConstsFromSync(item) {
+    if (item) {
+        if (item.zoomFactor) {
+            zoomFactor = item.zoomFactor;
+        }
+        if (item.zoomThreshold) {
+            zoomThreshold = item.zoomThreshold;
+        }
+    }
+}
+
+function setZoomFactor(newZoomFactor) {
+    zoomFactor = newZoomFactor;
+}
+
+function setZoomThreshold(newZoomThreshold) {
+    zoomThreshold = newZoomThreshold;
+}
+
+// init
+
+var getting = browser.storage.sync.get(["zoomFactor", "zoomThreshold"]);
+getting.then(updateConstsFromSync);
 
 browser.browserAction.onClicked.addListener(toggle);
 browser.tabs.onActivated.addListener(activated);
