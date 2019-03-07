@@ -19,10 +19,5 @@
     ],
     "options_ui": {
         "page": "options.html"
-    },
-    "applications": {
-        "gecko": {
-            "id": "ffreszoom@notartom.net"
-        }
     }
 }
