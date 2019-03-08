@@ -2,11 +2,11 @@ function saveOptions(e) {
     e.preventDefault();
     var newZoomFactor = parseFloat(document.querySelector("#zoomFactor").value);
     var newZoomThreshold = parseInt(document.querySelector("#zoomThreshold").value);
-    browser.storage.sync.set({
+    browser.storage.local.set({
         zoomFactor: newZoomFactor,
         zoomThreshold: newZoomThreshold
     });
-    // update "constants" in background.js, bypassing sync storage
+    // update "constants" in background.js, bypassing local storage
     var gettingBackground = browser.runtime.getBackgroundPage();
     gettingBackground.then(function (page) {
         page.setZoomFactor(newZoomFactor);
@@ -26,7 +26,7 @@ function restoreOptions() {
         console.log(`Error: ${error}`);
     }
 
-    var getting = browser.storage.sync.get(["zoomFactor", "zoomThreshold"]);
+    var getting = browser.storage.local.get(["zoomFactor", "zoomThreshold"]);
     getting.then(setFieldValues, onError);
 }
 
