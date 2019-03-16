@@ -102,7 +102,7 @@ function setZoomThreshold(newZoomThreshold) {
 
 // init
 
-var getting = browser.storage.sync.get(["zoomFactor", "zoomThreshold"]);
+var getting = browser.storage.local.get(["zoomFactor", "zoomThreshold"]);
 getting.then(updateConstsFromSync);
 
 browser.browserAction.onClicked.addListener(toggle);
