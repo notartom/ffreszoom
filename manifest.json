@@ -19,5 +19,13 @@
     ],
     "options_ui": {
         "page": "options.html"
+    },
+    "commands": {
+        "toggle-reszoom": {
+            "suggested_key": {
+                "linux": "Ctrl+Alt+Z"
+            },
+            "description": "Toggle On/Off"
+        }
     }
 }

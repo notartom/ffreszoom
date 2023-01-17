@@ -106,6 +106,11 @@ var getting = browser.storage.local.get(["zoomFactor", "zoomThreshold"]);
 getting.then(updateConstsFromSync);
 
 browser.browserAction.onClicked.addListener(toggle);
+browser.commands.onCommand.addListener((command) => {
+    if (command === "toggle-reszoom") {
+        toggle();
+    }
+});
 browser.tabs.onActivated.addListener(activated);
 browser.tabs.onUpdated.addListener(updated);
 browser.runtime.onMessage.addListener(resized);
